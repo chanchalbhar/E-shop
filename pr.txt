@@ -1,0 +1,133 @@
+Project Overview
+In this project, you will be developing from scratch REST API endpoints of various functionalities required for the web app upGrad Eshop. The application will interact with and store the data in the MongoDB database. Also, the project has to be implemented using Express.js and Node.js.
+As you are already aware, this is an individual project; and you will be required to use GitHub to conduct version control of your project. In your submission, include a link to your GitHub repo that contains the codebase of the EShop application.
+Note: This is a graded project. You are expected to complete all the set of tasks given to you.
+
+Database Schema
+The database schema required for the project is already designed and provided, as shown in the following image. You can create the schema in mongoose for the following collections : 
+
+User
+
+Address
+
+Order
+
+Product
+
+
+The below zip folder consists of the data dump which you can use to set up the database with some pre-filled data for the upGrad EShop application.
+
+Data Dump
+Download
+ 
+Create the schema for the above-mentioned collections in mongoose.
+
+Project Structure
+The project must follow a definite structure in order to help the reviewers for easy understanding. Also, a better project structure makes your code modular and easy to implement any new features on the existing application.
+
+ 
+
+Follow the directory structure given below.
+
+models - This directory must consist of the models and validators corresponding to the schema defined for the collections.
+
+controllers - This directory must consist of all the controller classes required for the project (The list of required controllers along with the API endpoints are listed in the coming segments).
+
+middleware - This directory must contain the auth and admin middleware required for authentication and authorisation.
+
+routes/index.js - These files configure the various API routes and their handlers
+
+ 
+
+Authentication
+Whenever a user tries to log in and provides a valid username and password, you would generate a JWT token and pass it to the user in the response. JWT token contains the following information
+
+username
+
+authorities for the user
+
+timestamp at which the token was issued
+
+ 
+
+npm package jsonwebtoken can be used for creating a JWT token.
+
+Password Encryption
+The password stored in the database needs to be encrypted. You should try to implement it as an additional feature of your upGrad Eshop application. Bcrypt library can be used for this purpose
+
+ 
+Authenticating a user
+Checking the authentication of any user is fairly simple — you first need to take the access token from the user in the request header. Then, you need to decrypt it, get the username from the token and search for the username in the user table. If the username does not exist, it means your access token is wrong, but if it exists, then you need to check whether the access token has expired or not. If the username exists in the database and the token has not expired, it means that the user has logged in and has authentication. 
+
+ 
+
+So, in the authentication method, you need to first log in, and then use the access token you get after logging in for authentication purposes.
+
+ 
+
+ 
+
+Authorisation
+Within the project any user can have one of the following two roles:
+
+USER
+
+ADMIN
+
+'USER' role refers to any customer who visits the website to make a purchase or just to browse. While the 'ADMIN' role refers to the user who is responsible for the maintenance and management of the products in the inventory. So, to access a few of the endpoints you might require ADMIN level authorization access.
+
+ 
+
+You can store the role of a user while generating the token. So, whenever a user tries to access an endpoint, you can retrieve the role from the token and decide whether the user has access to that endpoint or not.
+
+
+ 
+
+Return Empty List
+Whenever you are asked to return a list of entities, make sure that you return a list only. So, in any scenario, even if there are no entities found, return an empty list with HTTP status OK, rather than throwing an exception. For eg., if you want to get all product categories list, and no category was found in the database, return an empty list.
+
+ 
+HTTP Status
+You learned what the different HTTP response status codes are, and how to implement them when creating the API endpoints and return the corresponding HTTP status codes based on the functionality or message.
+
+ 
+
+The response codes you will be using in this project are as follows:
+
+HttpStatus.OK - 200: This will be used if the request made by the user results in a successful response and the user gets what he wants.
+
+HttpStatus.UNAUTHORIZED - 401: This will be used if the user is not authenticated but is trying to access an endpoint that requires authentication.
+
+HttpStatus.NOT_FOUND - 404: This will be used in case the resource asked by the UI is not found in the server.
+
+HttpStatus.BAD_REQUEST - 400: This will be used if the server doesn’t understand the request due to invalid syntax. 
+
+HttpStatus.FORBIDDEN - 403: This will be used if the user is not authorised to perform the requested operation.
+
+ 
+
+Note: Make sure that the HTTP status you enter is correct; you will lose marks if your status code is incorrect.
+
+ 
+
+Version Control Best Practices
+Following are the best practices for when you are using Git and GitHub to conduct version control of your code. These will make you a more effective software engineer.
+
+Commit often.
+
+Make small, incremental commits.
+
+Write good commit messages.
+
+Make sure your code works before you commit it.
+
+ 
+
+Here are additional readings on the best Git practices:
+
+Git Common Practices
+
+Commit Often, Fix it Later, Publish Once- Git Best Practices
+
+Information
+All the listed parameters for each endpoint are, by default, required unless explicitly marked optional.
